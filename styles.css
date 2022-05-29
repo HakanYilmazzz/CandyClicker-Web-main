@@ -71,11 +71,11 @@ img{
 .candy-shop-item {
     width: 100%;
     height: 24px;
-    /* background-image: linear-gradient(#52525233, #ffffff55, #52525233); */
     border-spacing: 0px;
     table-layout: fixed;
     padding-left: 5px;
     padding-right: 5px;
+    border-color: #FF4141 !important;
 }
 
 .candy-shop-item:hover {
@@ -284,6 +284,7 @@ small.popup-content {
 #candy-shop {
     overflow-y: scroll;
     touch-action: pan-y;
+    border: 3px solid #FF4141 !important;
 }
 
 #reincarnation-popup-close-line {
@@ -298,3 +299,23 @@ small.popup-content {
 #mikachan-face {
     font-size: 18px;
 }
+::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgb(230, 87, 87); 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #ff0000 ; 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b30000; 
+  }
