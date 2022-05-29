@@ -1,19 +1,19 @@
 const shop = [
-    { "name": "Auto Clicker", "additionalPerClick": 0n, "additionalPerSecond": 1n, "price": 100n },
-    { "name": "Candy Machine", "additionalPerClick": 0n, "additionalPerSecond": 5n, "price": 250n },
-    { "name": "Larger Candies", "additionalPerClick": 1n, "additionalPerSecond": 0n, "price": 500n },
-    { "name": "Grandma", "additionalPerClick": 2n, "additionalPerSecond": 10n, "price": 1000n },
-    { "name": "Candy Shop", "additionalPerClick": 3n, "additionalPerSecond": 15n, "price": 2500n },
-    { "name": "Candy Factory", "additionalPerClick": 5n, "additionalPerSecond": 20n, "price": 5000n },
-    { "name": "Candy Army", "additionalPerClick": 10n, "additionalPerSecond": 50n, "price": 50000n },
-    { "name": "King Candy", "additionalPerClick": 15n, "additionalPerSecond": 60n, "price": 100000n },
-    { "name": "Candy Nuke", "additionalPerClick": 25n, "additionalPerSecond": 100n, "price": 250000n },
-    { "name": "Planet Candy", "additionalPerClick": 50n, "additionalPerSecond": 500n, "price": 500000n },
-    { "name": "Candy Cosmos", "additionalPerClick": 100n, "additionalPerSecond": 750n, "price": 1000000n },
-    { "name": "CandyTime Continuum", "additionalPerClick": 250n, "additionalPerSecond": 1000n, "price": 2000000n },
-    { "name": "Candyverse Portal", "additionalPerClick": 500n, "additionalPerSecond": 5000n, "price": 5000000n },
-    { "name": "Infinite Candy Theory", "additionalPerClick": 1000n, "additionalPerSecond": 10000n, "price": 10000000n },
-    { "name": "Unobtainium Candy", "additionalPerClick": 2500n, "additionalPerSecond": 25000n, "price": 15000000n }
+    { "name": "Otomatik Tıklayıcı", "additionalPerClick": 0n, "additionalPerSecond": 1n, "price": 100n },
+    { "name": "Şeker Makinesi", "additionalPerClick": 0n, "additionalPerSecond": 5n, "price": 250n },
+    { "name": "Büyük Mumlar", "additionalPerClick": 1n, "additionalPerSecond": 0n, "price": 500n },
+    { "name": "Büyük Anne", "additionalPerClick": 2n, "additionalPerSecond": 10n, "price": 1000n },
+    { "name": "Şeker Dükkanı", "additionalPerClick": 3n, "additionalPerSecond": 15n, "price": 2500n },
+    { "name": "Şeker Fabrikası", "additionalPerClick": 5n, "additionalPerSecond": 20n, "price": 5000n },
+    { "name": "Şeker Ordusu", "additionalPerClick": 10n, "additionalPerSecond": 50n, "price": 50000n },
+    { "name": "Şeker Kralı", "additionalPerClick": 15n, "additionalPerSecond": 60n, "price": 100000n },
+    { "name": "Şeker Bombası", "additionalPerClick": 25n, "additionalPerSecond": 100n, "price": 250000n },
+    { "name": "Şeker Gezegeni", "additionalPerClick": 50n, "additionalPerSecond": 500n, "price": 500000n },
+    { "name": "Şeker Evreni", "additionalPerClick": 100n, "additionalPerSecond": 750n, "price": 1000000n },
+    { "name": "Şeker-zaman Sürekliliği", "additionalPerClick": 250n, "additionalPerSecond": 1000n, "price": 2000000n },
+    { "name": "Şeker Evreni Portalı", "additionalPerClick": 500n, "additionalPerSecond": 5000n, "price": 5000000n },
+    { "name": "Sonsuz Şeker Teoremi", "additionalPerClick": 1000n, "additionalPerSecond": 10000n, "price": 10000000n },
+    { "name": "Unobtainium Şekeri", "additionalPerClick": 2500n, "additionalPerSecond": 25000n, "price": 15000000n }
 ];
 
 const uInt64Max = 2n ** 64n - 1n;
@@ -70,7 +70,7 @@ function reloadShop() {
         let item = shop[i];
         let $template = $('#candy-shop-item-template').contents().clone();
         $template.attr("id", `candy-shop-item-${i}`);
-        let tooltip = `+${item.additionalPerClick * shopMultiplier} per click, +${item.additionalPerSecond * shopMultiplier} per second, ${shopPurchasedCount[i]} already purchased`;
+        let tooltip = `Tıklama Başına: +${item.additionalPerClick * shopMultiplier} şeker, Saniye Başına: +${item.additionalPerSecond * shopMultiplier} şeker, Sahip Olduğun: ${shopPurchasedCount[i]} şeker`;
         if (shopMultiplier >= 2n) {
             tooltip += `, x${shopMultiplier} applied`;
         }
@@ -102,13 +102,9 @@ function updateOverflowBanner() {
     let $overflowBanner = $('#overflow-banner');
     $overflowBanner.css('visibility', overflowCounter == 0n ? 'hidden' : 'visible');
     if (overflowCounter == 0n) {
-        // Ensures the bottom margin always applies to prevent shop shifting.
-        // Will not be seen by player.
         $overflowBanner.text('★');
     }
     else if (overflowCounter < 1000n) {
-        // Check if the target number of stars will actually fit on-screen
-        // If not, replace it with a numeric value instead
         $overflowBanner.text('★'.repeat(Number(overflowCounter)));
         if ($overflowBanner.width() > $(window).width() - 20) {
             $overflowBanner.text(`★ x ${overflowCounter}`);
@@ -175,73 +171,6 @@ function byteArrayToUInt64(bytes) {
         num += BigInt(bytes[i]) << BigInt(i * 8);
     }
     return BigInt.asUintN(64, num);
-}
-
-function loadSaveBytes(bytes) {
-    try {
-        let header = bytes.slice(0, 8);
-        for (let i = 0; i < 8; i++) {
-            if (header[i] != saveHeader[i]) {
-                throw "Invalid save file";
-            }
-        }
-        let saveBytes = bytes.slice(8);
-        let hashBytes = saveBytes.slice(saveBytes.length - 16);
-        let testHash = md5.array(saveBytes.slice(0, saveBytes.length - 16));
-        for (let i = 0; i < 16; i++) {
-            if (hashBytes[i] != testHash[i]) {
-                throw "Invalid save file";
-            }
-        }
-
-        candyScore = byteArrayToUInt64(saveBytes.slice(0, 8));
-        candyPerClick = byteArrayToUInt64(saveBytes.slice(8, 16));
-        candyPerSecond = byteArrayToUInt64(saveBytes.slice(16, 24));
-        clicksTowardSpecial = 0;
-        updateReincarnationMultiplier(byteArrayToUInt64(saveBytes.slice(24, 32)));
-        reincarnateCounter = byteArrayToUInt64(saveBytes.slice(32, 40));
-        overflowCounter = byteArrayToUInt64(saveBytes.slice(40, 48));
-        shopMultiplier = byteArrayToUInt64(saveBytes.slice(48, 56));
-
-        for (let i = 0; i < (saveBytes.length - 72) / 8 && i < shopPurchasedCount.length; i++) {
-            shopPurchasedCount[i] = byteArrayToUInt64(saveBytes.slice((i * 8) + 56, (i * 8) + 64));
-        }
-
-        $('#candy-score').text(candyScore.toLocaleString());
-        $('#candy-per-second-value').text(candyPerSecond.toLocaleString());
-        $('#candy-per-click-value').text(candyPerClick.toLocaleString());
-        $('#candy-meter').prop('value', clicksTowardSpecial);
-        updateOverflowBanner();
-        reloadShop();
-    }
-    catch {
-        alert("Modified or corrupt save file detected");
-    }
-}
-
-function getSaveBytes() {
-    let candyScoreBytes = new Uint8Array(56);
-    candyScoreBytes.set(uInt64ToByteArray(candyScore));
-    candyScoreBytes.set(uInt64ToByteArray(candyPerClick), 8);
-    candyScoreBytes.set(uInt64ToByteArray(candyPerSecond), 16);
-    candyScoreBytes.set(uInt64ToByteArray(candyPSReincarnationMultiplier), 24);
-    candyScoreBytes.set(uInt64ToByteArray(reincarnateCounter), 32);
-    candyScoreBytes.set(uInt64ToByteArray(overflowCounter), 40);
-    candyScoreBytes.set(uInt64ToByteArray(shopMultiplier), 48);
-
-    let purchasedItemsBytes = new Uint8Array(shopPurchasedCount.length * 8);
-    for (let i = 0; i < shopPurchasedCount.length; i++) {
-        purchasedItemsBytes.set(uInt64ToByteArray(shopPurchasedCount[i]), i * 8);
-    }
-
-    let combinedBytes = new Uint8Array(saveHeader.length + candyScoreBytes.length + purchasedItemsBytes.length + 16);
-    combinedBytes.set(saveHeader);
-    combinedBytes.set(candyScoreBytes, saveHeader.length);
-    combinedBytes.set(purchasedItemsBytes, saveHeader.length + candyScoreBytes.length);
-
-    let hashBytes = new Uint8Array(md5.array(combinedBytes.slice(8, combinedBytes.length - 16)));
-    combinedBytes.set(hashBytes, saveHeader.length + candyScoreBytes.length + purchasedItemsBytes.length);
-    return combinedBytes;
 }
 
 function giveCandy(amount) {
@@ -337,7 +266,7 @@ function openReincarnationPopUp() {
             $endgameReincarnationParagraph.css('display', '');
             if (overflowCounter >= 60n) {
                 $reincarnateAgreeButton.prop('disabled', false);
-                $reincarnateAgreeButton.text("Reincarnate (!)");
+                $reincarnateAgreeButton.text("Reenkarne (!)");
                 $reincarnateAgreeButton.css('color', '');
                 $reincarnateAgreeButton.css('background-color', '');
                 $reincarnateAgreeButton.css('border-color', '');
@@ -346,7 +275,7 @@ function openReincarnationPopUp() {
             }
             else {
                 $reincarnateAgreeButton.prop('disabled', true);
-                $reincarnateAgreeButton.text("Not Enough Stars");
+                $reincarnateAgreeButton.text("Yetersiz Yıldız");
                 $reincarnateAgreeButton.css('color', 'gray');
                 $reincarnateAgreeButton.css('background-color', '#f4f4f4');
                 $reincarnateAgreeButton.css('border-color', '#adb2b5');
@@ -356,7 +285,7 @@ function openReincarnationPopUp() {
             $reincarnationParagraph.css('display', '');
             $endgameReincarnationParagraph.css('display', 'none');
             $reincarnateAgreeButton.prop('disabled', false);
-            $reincarnateAgreeButton.text("Reincarnate");
+            $reincarnateAgreeButton.text("Reenkarne");
             $reincarnateAgreeButton.css('color', '');
             $reincarnateAgreeButton.css('background-color', '');
             $reincarnateAgreeButton.css('border-color', '');
@@ -368,7 +297,7 @@ function openReincarnationPopUp() {
         $reincarnationParagraph.css('display', '');
         $endgameReincarnationParagraph.css('display', 'none');
         $reincarnateAgreeButton.prop('disabled', true);
-        $reincarnateAgreeButton.text("Not Enough Candy");
+        $reincarnateAgreeButton.text("Yetersiz şeker");
         $reincarnateAgreeButton.css('color', 'gray');
         $reincarnateAgreeButton.css('background-color', '#f4f4f4');
         $reincarnateAgreeButton.css('border-color', '#adb2b5');
@@ -422,7 +351,7 @@ function shopItemClick(itemIndex) {
         shopPurchasedCount[itemIndex]++;
         let $clickedItem = $(`#candy-shop-item-${itemIndex}`)
         $clickedItem.find('.candy-shop-item-price').text(`(${calculateInflatedCost(purchasedItem.price, shopPurchasedCount[itemIndex]).toLocaleString()})`);
-        let tooltip = `+${purchasedItem.additionalPerClick * shopMultiplier} per click, +${purchasedItem.additionalPerSecond * shopMultiplier} per second, ${shopPurchasedCount[itemIndex]} already purchased`;
+        let tooltip = `Tıklama başına: +${purchasedItem.additionalPerClick * shopMultiplier} şeker, Saniye Başına:  +${purchasedItem.additionalPerSecond * shopMultiplier} şeker, Sahip olduğun şeker: ${shopPurchasedCount[itemIndex]}`;
         if (shopMultiplier >= 2n) {
             tooltip += `, x${shopMultiplier} applied`;
         }
@@ -473,33 +402,6 @@ $('#reincarnate-agree-button').on('click', function () {
     }
 });
 
-$('#save-button').on('click', function () {
-    let saveBytes = getSaveBytes();
-    if (isOnMobile && confirm("Are you sure? This will overwrite any existing save data")) {
-        localStorage.setItem('save_data', saveBytes.join());
-    }
-    else {
-        download(saveBytes, 'save_data.dat', 'application/octet-stream');
-    }
-});
-
-$('#load-button').on('click', function () {
-    if (isOnMobile && confirm("Are you sure? This will overwrite your current progress with the save data")) {
-        loadSaveBytes(new Uint8Array(localStorage.getItem('save_data').split(',')));
-    }
-    else {
-        let $hiddenUploader = $('#hidden-uploader');
-        $hiddenUploader.on('change', function () {
-            let reader = new FileReader();
-            reader.onload = function () {
-                loadSaveBytes(new Uint8Array(reader.result));
-            }
-            reader.readAsArrayBuffer($hiddenUploader.prop('files')[0]);
-        });
-        $hiddenUploader.trigger("click");
-    }
-});
-
 function timerPerSecondElapsed() {
     if (!isEndGameVisualActive && candyPSReincarnationMultiplier == uInt64Max) {
         endGameVisualUpdate();
@@ -518,7 +420,6 @@ function timerPerSecondElapsed() {
     else {
         previousClicksPerSecond.push(clicksThisSecond);
         clicksThisSecond = 0;
-        // First value is skipped as it will most likely be lower than expected
         if (previousClicksPerSecond.length >= 2) {
             $('#clicks-per-second-value').text((previousClicksPerSecond.slice(1).reduce((a, b) => a + b) / (previousClicksPerSecond.length - 1)).toFixed(1));
         }
@@ -554,5 +455,5 @@ function timerCandyPerSecondElapsed() {
 }
 
 $(window).bind('beforeunload', function () {
-    return "Are you sure you want to leave? Any progress since your last save will be lost!";
+    return "Çıkmak istediğine emin misin? bütün ilerlemen kaybolacak";
 });
