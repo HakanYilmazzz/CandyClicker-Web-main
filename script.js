@@ -57,7 +57,7 @@ $(window).on('load', function () {
     timerPerSecond = setInterval(timerPerSecondElapsed, 1000);
     timerCandyPerSecond = setInterval(timerCandyPerSecondElapsed, 100);
 
-    openHelpPopUp();
+    // openHelpPopUp();
 });
 
 function calculateInflatedCost(originalPrice, purchasedCount) {

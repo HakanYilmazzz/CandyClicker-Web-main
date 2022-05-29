@@ -4,7 +4,6 @@
 }
 
 body {
-    background-color: #86FFFA;
     overflow: clip;
     margin: 0px;
     width: 100%;
@@ -13,7 +12,9 @@ body {
     touch-action: none;
     cursor: default;
 }
-
+.table{
+    margin-bottom: .5rem !important;
+}
 img{
     -khtml-user-select: none;
     -o-user-select: none;
@@ -244,24 +245,12 @@ small.popup-content {
 }
 
 #candy-meter {
-    height: 10px;
+    height: 15px;
     width: 100%;
     appearance: none;
     border: 0px;
     vertical-align: top;
-    /* Firefox Background */
-    background-color: #00000066;
     margin-top: 2px;
-}
-
-/* Firefox Foreground */
-#candy-meter::-moz-progress-bar {
-    background-color: #FF4141 !important;
-}
-
-/* Chromium Background */
-#candy-meter::-webkit-progress-bar {
-    background-color: #00000066;
 }
 
 /* Chromium Foreground */
@@ -270,8 +259,8 @@ small.popup-content {
 }
 
 #main-candy {
-    width: 172px;
-    height: 125px;
+    width: 152px;
+    height: 105px;
     margin-top: 60px;
     margin-bottom: 60px;
     display: block;

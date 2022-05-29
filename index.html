@@ -1,7 +1,3 @@
-<!--
-    Candy Clicker ver. 2.0.0 (web)
-    Copyright © 2021-2022  Ptolemy Hill
--->
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -47,9 +43,11 @@
     <progress id="candy-meter" max="1000" value="0"></progress>
     <img id="main-candy" src="images/candy.png" alt="Main Candy" draggable="false" />
     <div id="overflow-banner" class="candy-clicker-special-text"></div>
-    <div id="candy-shop"></div>
+    <div class="d-flex justify-content-center mtable">
+        <div id="candy-shop" class="w-75 border border-danger rounded"></div>
+    </div>
     <template id="candy-shop-item-template">
-        <table class="candy-shop-item table table-striped w-75">
+        <table class="candy-shop-item table table-striped">
             <tr>
                 <td class="candy-shop-item-name candy-shop-text candy-clicker-text"></td>
                 <td class="candy-shop-item-price candy-shop-text candy-clicker-text"></td>
@@ -59,13 +57,15 @@
     <div id="reincarnation-popup-container" class="popup-container" style="display: none; opacity: 0;">
         <div class="popup-window-border">
             <div class="popup-window">
-                <h1 class="popup-content candy-clicker-text">Reenkarnasyon</h1>
+                <h1 class="popup-content candy-clicker-text mb-5">Reenkarnasyon</h1>
                 <div class="popup-paragraph">
-                    <p id="reincarnation-paragraph" class="popup-content candy-clicker-text">Reenkarnasyon şunları yapmanızı sağlar:
-                        saniyede şekerlerinize kalıcı bir çarpan ekleyerek oyunu yeniden başlatın. Sahip olduğun her <span
-                            id="reincarnation-paragraph-divisor"></span> şeker karşılığında reenkarne olabilirsin. Bir
-                            reenkarnasyondan sonra saniye başına ek çarpan ile şekerler kazanabilirsin. Mevcut şekerleriniz,
-                            saniyede şeker, tıklama başına şeker, mağaza fiyatları sıfırlanır. Taşan yıldızlarınız varsa, şeker puanınız limitmiş gibi değerlendirilir.
+                    <p id="reincarnation-paragraph" class="popup-content candy-clicker-text">Reenkarnasyon şunları
+                        yapmanızı sağlar: <br/>
+                        Saniyede şekerlerinize kalıcı bir çarpan ekleyerek oyunu yeniden başlatın. Sahip olduğun her
+                        <span id="reincarnation-paragraph-divisor"></span> şeker karşılığında reenkarne olabilirsin. Bir
+                        reenkarnasyondan sonra saniye başına ek çarpan ile şekerler kazanabilirsin. Mevcut şekerleriniz,
+                        saniyede şeker, tıklama başına şeker ve mağaza fiyatları sıfırlanır. Taşan yıldızlarınız varsa,
+                        şeker puanınız limitmiş gibi değerlendirilir.
                 </div>
                 <button id="reincarnate-agree-button"
                     class="popup-action-button popup-button candy-clicker-text mb-5">ReenKarne </button>
