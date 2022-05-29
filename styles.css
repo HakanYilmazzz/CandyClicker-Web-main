@@ -11,6 +11,9 @@ body {
     position: fixed;
     touch-action: none;
     cursor: default;
+    background-image: url("images/background.jpg");
+    background-repeat: no-repeat, repeat;
+    background-size: 100vw;
 }
 .table{
     margin-bottom: .5rem !important;
